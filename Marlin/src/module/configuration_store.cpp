@@ -401,9 +401,8 @@ void MarlinSettings::postprocess() {
     report_current_position();
 }
 
-#if ENABLED(PRINTCOUNTER) && ENABLED(EEPROM_SETTINGS)
+#if BOTH(PRINTCOUNTER, EEPROM_SETTINGS)
   #include "printcounter.h"
-
   static_assert(
     !WITHIN(STATS_EEPROM_ADDRESS, EEPROM_OFFSET, EEPROM_OFFSET + sizeof(SettingsData)) &&
     !WITHIN(STATS_EEPROM_ADDRESS + sizeof(printStatistics), EEPROM_OFFSET, EEPROM_OFFSET + sizeof(SettingsData)),
@@ -2072,6 +2071,10 @@ void MarlinSettings::postprocess() {
       return success;
     }
     reset();
+    #if ENABLED(EEPROM_AUTO_INIT)
+      (void)save();
+      SERIAL_ECHO_MSG("EEPROM Initialized");
+    #endif
     return true;
   }
 
@@ -2133,7 +2136,7 @@ void MarlinSettings::postprocess() {
       #endif
     }
 
-    void MarlinSettings::load_mesh(const int8_t slot, void * const into/*=NULL*/) {
+    void MarlinSettings::load_mesh(const int8_t slot, void * const into/*=nullptr*/) {
 
       #if ENABLED(AUTO_BED_LEVELING_UBL)
 
@@ -2546,7 +2549,7 @@ void MarlinSettings::reset() {
   #if HAS_TRINAMIC
     inline void say_M906(const bool forReplay) { CONFIG_ECHO_START(); SERIAL_ECHOPGM("  M906"); }
     #if HAS_STEALTHCHOP
-      void say_M569(const char * const etc=NULL) {
+      void say_M569(const char * const etc=nullptr) {
         SERIAL_ECHOPGM("  M569 S1");
         if (etc) {
           SERIAL_CHAR(' ');
