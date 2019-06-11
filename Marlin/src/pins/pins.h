@@ -160,6 +160,8 @@
   #include "pins_RAMPS_ENDER_4.h"     // ATmega2560                                 env:megaatmega2560
 #elif MB(RAMPS_CREALITY)
   #include "pins_RAMPS_CREALITY.h"    // ATmega2560                                 env:megaatmega2560
+#elif MB(RAMPS_DAGOMA)
+  #include "pins_RAMPS_DAGOMA.h"      // ATmega2560                                 env:megaatmega2560
 #elif MB(FYSETC_F6_13)
   #include "pins_FYSETC_F6_13.h"      // ATmega2560                                 env:fysetc_f6_13
 #elif MB(DUPLICATOR_I3_PLUS)
@@ -412,6 +414,8 @@
   #include "pins_STM32F1R.h"          // STM32F1                                    env:STM32F1
 #elif MB(STM3R_MINI)
   #include "pins_STM3R_MINI.h"        // STM32F1                                    env:STM32F1
+#elif MB(BIGTREE_SKR_MINI_V1_1)
+  #include "pins_BIGTREE_SKR_MINI_V1_1.h" // STM32F1                                env:BIGTREE_SKR_MINI
 #elif MB(MALYAN_M200)
   #include "pins_MALYAN_M200.h"       // STM32F1                                    env:malyanm200
 #elif MB(CHITU3D)
