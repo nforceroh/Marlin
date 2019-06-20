@@ -603,13 +603,13 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // set to true to invert the logic of the probe.
+#define X_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true  // Set to true to invert the logic of the probe.
 
 /**
  * Stepper Drivers
@@ -620,11 +620,11 @@
  * A4988 is assumed for unspecified drivers.
  *
  * Options: A4988, A5984, DRV8825, LV8729, L6470, TB6560, TB6600, TMC2100,
- *          TMC2130, TMC2130_STANDALONE, TMC2208, TMC2208_STANDALONE,
+ *          TMC2130, TMC2130_STANDALONE, TMC2160, TMC2160_STANDALONE,
+ *          TMC2208, TMC2208_STANDALONE, TMC2209, TMC2209_STANDALONE,
  *          TMC26X,  TMC26X_STANDALONE,  TMC2660, TMC2660_STANDALONE,
- *          TMC2160, TMC2160_STANDALONE, TMC5130, TMC5130_STANDALONE,
- *          TMC5160, TMC5160_STANDALONE
- * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
+ *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
+ * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
 //#define X_DRIVER_TYPE  A4988
 //#define Y_DRIVER_TYPE  A4988
@@ -811,72 +811,22 @@
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
 //#define BLTOUCH
-#if ENABLED(BLTOUCH)
-  /**
-   * Either: Use the defaults (recommended) or: For special purposes, use the following DEFINES
-   * Do not activate settings that the probe might not understand. Clones might misunderstand
-   * advanced commands.
-   *
-   * Note: If the probe is not deploying, check a "Cmd: Reset" and "Cmd: Self-Test" and then
-   *       check the wiring of the BROWN, RED and ORANGE wires.
-   *
-   * Note: If the trigger signal of your probe is not being recognized, it has been very often
-   *       because the BLACK and WHITE wires needed to be swapped. They are not "interchangeable"
-   *       like they would be with a real switch. So please check the wiring first.
-   *
-   * Settings for all BLTouch and clone probes:
-   */
 
-  // Safety: The probe needs time to recognize the command.
-  //         Minimum command delay (ms). Enable and increase if needed.
-  #define BLTOUCH_DELAY 200
-
-  /**
-   * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
-   */
-
-  // Feature: Switch into SW mode after a deploy. It makes the output pulse longer. Can be useful
-  //          in special cases, like noisy or filtered input configurations.
-  //#define BLTOUCH_FORCE_SW_MODE
-
-  /**
-   * Settings for BLTouch Smart 3.0 and 3.1
-   * Summary:
-   *   - Voltage modes: 5V and OD (open drain - "logic voltage free") output modes
-   *   - High-Speed mode
-   *   - Disable LCD voltage options
-   */
-
-  /**
-   * Danger: Don't activate 5V mode unless attached to a 5V-tolerant controller!
-   * V3.0 or 3.1: Set default mode to 5V mode at Marlin startup.
-   * If disabled, OD mode is the hard-coded default on 3.0
-   * On startup, Marlin will compare its eeprom to this vale. If the selected mode
-   * differs, a mode set eeprom write will be completed at initialization.
-   * Use the option below to force an eeprom write to a V3.1 probe regardless.
-   */
-  //#define BLTOUCH_SET_5V_MODE
-
-  /**
-   * Safety: Activate if connecting a probe with an unknown voltage mode.
-   * V3.0: Set a probe into mode selected above at Marlin startup. Required for 5V mode on 3.0
-   * V3.1: Force a probe with unknown mode into selected mode at Marlin startup ( = Probe EEPROM write )
-   * To preserve the life of the probe, use this once then turn it off and re-flash.
-   */
-  //#define BLTOUCH_FORCE_MODE_SET
-
-  /**
-   * Use "HIGH SPEED" mode for probing.
-   * Danger: Disable if your probe sometimes fails. Only suitable for stable well-adjusted systems.
-   * This feature was designed for Delta's with very fast Z moves however higher speed cartesians may function
-   * If the machine cannot raise the probe fast enough after a trigger, it may enter a fault state.
-   */
-  #define BLTOUCH_HS_MODE
-
-  // Safety: Enable voltage mode settings in the LCD menu.
-  //#define BLTOUCH_LCD_VOLTAGE_MENU
-
-#endif // BLTOUCH
+/**
+ * Touch-MI Probe by hotends.fr
+ *
+ * This probe is deployed and activated by moving the X-axis to a magnet at the edge of the bed.
+ * By default, the magnet is assumed to be on the left and activated by a home. If the magnet is
+ * on the right, enable and set TOUCH_MI_DEPLOY_XPOS to the deploy position.
+ *
+ * Also requires: BABYSTEPPING, BABYSTEP_ZPROBE_OFFSET, Z_SAFE_HOMING,
+ *                MIN_PROBE_EDGE, and a minimum Z_HOMING_HEIGHT of 10.
+ */
+//#define TOUCH_MI_PROBE
+#if ENABLED(TOUCH_MI_PROBE)
+  #define TOUCH_MI_RETRACT_Z 0.5                  // Height at which the probe retracts
+  //#define TOUCH_MI_DEPLOY_XPOS (X_MAX_BED + 2)  // For a magnet on the right side of the bed
+#endif
 
 // A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
 //#define SOLENOID_PROBE
@@ -1094,7 +1044,7 @@
   #define NUM_RUNOUT_SENSORS   1     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
   #define FIL_RUNOUT_PIN      66
   //#define FIL_RUNOUT2_PIN     67
-  #define FIL_RUNOUT_INVERTING true  // set to true to invert the logic of the sensors.
+  #define FIL_RUNOUT_INVERTING true  // Set to true to invert the logic of the sensors.
   #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
   //#define FIL_RUNOUT_PULLDOWN      // Use internal pulldown for filament runout pins.
 
@@ -1946,14 +1896,15 @@
 
 //
 // MKS MINI12864 with graphic controller and SD support
-// http://reprap.org/wiki/MKS_MINI_12864
+// https://reprap.org/wiki/MKS_MINI_12864
 //
 //#define MKS_MINI_12864
 
 //
 // FYSETC variant of the MINI12864 graphic controller with SD support
-// https://wiki.fysetc.com/Mini12864_Panel/?fbclid=IwAR1FyjuNdVOOy9_xzky3qqo_WeM5h-4gpRnnWhQr_O1Ef3h0AFnFXmCehK8
+// https://wiki.fysetc.com/Mini12864_Panel/
 //
+//#define FYSETC_MINI_12864_X_X  // Type C/D/E/F. No tunable RGB Backlight by default
 //#define FYSETC_MINI_12864_1_2  // Type C/D/E/F. Simple RGB Backlight (always on)
 //#define FYSETC_MINI_12864_2_0  // Type A/B. Discreet RGB Backlight
 //#define FYSETC_MINI_12864_2_1  // Type A/B. Neopixel RGB Backlight

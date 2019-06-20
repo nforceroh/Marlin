@@ -375,7 +375,8 @@
   #define INVERT_CASE_LIGHT false             // Set true if Case Light is ON when pin is LOW
   #define CASE_LIGHT_DEFAULT_ON true          // Set default power-up state on
   #define CASE_LIGHT_DEFAULT_BRIGHTNESS 105   // Set default power-up brightness (0-255, requires PWM pin)
-  //#define MENU_ITEM_CASE_LIGHT              // Add a Case Light option to the LCD main menu
+  //#define CASE_LIGHT_MENU                   // Add Case Light options to the LCD menu
+  //#define CASE_LIGHT_NO_BRIGHTNESS          // Disable brightness control. Enable for non-PWM lighting.
   //#define CASE_LIGHT_USE_NEOPIXEL           // Use Neopixel LED as case light, requires NEOPIXEL_LED.
   #if ENABLED(CASE_LIGHT_USE_NEOPIXEL)
     #define CASE_LIGHT_NEOPIXEL_COLOR { 255, 255, 255, 255 } // { Red, Green, Blue, White }
@@ -630,7 +631,7 @@
 #define DEFAULT_STEPPER_DEACTIVE_TIME 120
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
-#define DISABLE_INACTIVE_Z true  // set to false if the nozzle will fall down on your printed part when print has finished.
+#define DISABLE_INACTIVE_Z true  // Set to false if the nozzle will fall down on your printed part when print has finished.
 #define DISABLE_INACTIVE_E true
 
 #define DEFAULT_MINIMUMFEEDRATE       0.0     // minimum feedrate
@@ -641,12 +642,11 @@
 // @section lcd
 
 #if EITHER(ULTIPANEL, EXTENSIBLE_UI)
-  #define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 60} // Feedrates for manual moves along X, Y, Z, E from panel
-#endif
-
-#if ENABLED(ULTIPANEL)
-  #define MANUAL_E_MOVES_RELATIVE // Show LCD extruder moves as relative rather than absolute positions
-  #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
+  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 60 } // Feedrates for manual moves along X, Y, Z, E from panel
+  #if ENABLED(ULTIPANEL)
+    #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
+    #define ULTIPANEL_FEEDMULTIPLY  // Encoder sets the feedrate multiplier on the Status Screen
+  #endif
 #endif
 
 // @section extras
@@ -747,7 +747,7 @@
   // Define pin which is read during calibration
   #ifndef CALIBRATION_PIN
     #define CALIBRATION_PIN -1 // Override in pins.h or set to -1 to use your Z endstop
-    #define CALIBRATION_PIN_INVERTING false // set to true to invert the pin
+    #define CALIBRATION_PIN_INVERTING false // Set to true to invert the pin
     //#define CALIBRATION_PIN_PULLDOWN
     #define CALIBRATION_PIN_PULLUP
   #endif
@@ -917,7 +917,7 @@
    */
   //#define POWER_LOSS_RECOVERY
   #if ENABLED(POWER_LOSS_RECOVERY)
-    //#define POWER_LOSS_PIN         44 // Pin to detect power loss (optional)
+    //#define POWER_LOSS_PIN         44 // Pin to detect power loss
     //#define POWER_LOSS_STATE     HIGH // State of pin indicating power loss
     //#define POWER_LOSS_PURGE_LEN   20 // (mm) Length of filament to purge on resume
     //#define POWER_LOSS_RETRACT_LEN 10 // (mm) Length of filament to retract on fail. Requires backup power.
@@ -1727,6 +1727,29 @@
   //#define TMC_SW_SCK        -1
 
   /**
+   * Four TMC2209 drivers can use the same HW/SW serial port with hardware configured addresses.
+   * Set the address using jumpers on pins MS1 and MS2.
+   * Address | MS1  | MS2
+   *       0 | LOW  | LOW
+   *       1 | HIGH | LOW
+   *       2 | LOW  | HIGH
+   *       3 | HIGH | HIGH
+   */
+  #define  X_SLAVE_ADDRESS 0
+  #define  Y_SLAVE_ADDRESS 0
+  #define  Z_SLAVE_ADDRESS 0
+  #define X2_SLAVE_ADDRESS 0
+  #define Y2_SLAVE_ADDRESS 0
+  #define Z2_SLAVE_ADDRESS 0
+  #define Z3_SLAVE_ADDRESS 0
+  #define E0_SLAVE_ADDRESS 0
+  #define E1_SLAVE_ADDRESS 0
+  #define E2_SLAVE_ADDRESS 0
+  #define E3_SLAVE_ADDRESS 0
+  #define E4_SLAVE_ADDRESS 0
+  #define E5_SLAVE_ADDRESS 0
+
+  /**
    * Software enable
    *
    * Use for drivers that do not use a dedicated enable pin, but rather handle the same
@@ -1829,6 +1852,12 @@
     #define Y_STALL_SENSITIVITY  8
     //#define Z_STALL_SENSITIVITY  8
   #endif
+
+  /**
+   * Beta feature!
+   * Create a 50/50 square wave step pulse optimal for stepper drivers.
+   */
+  //#define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.
@@ -2079,14 +2108,14 @@
 //#define SPINDLE_LASER_ENABLE
 #if ENABLED(SPINDLE_LASER_ENABLE)
 
-  #define SPINDLE_LASER_ENABLE_INVERT   false  // set to "true" if the on/off function is reversed
-  #define SPINDLE_LASER_PWM             true   // set to true if your controller supports setting the speed/power
-  #define SPINDLE_LASER_PWM_INVERT      true   // set to "true" if the speed/power goes up when you want it to go slower
-  #define SPINDLE_LASER_POWERUP_DELAY   5000   // delay in milliseconds to allow the spindle/laser to come up to speed/power
-  #define SPINDLE_LASER_POWERDOWN_DELAY 5000   // delay in milliseconds to allow the spindle to stop
-  #define SPINDLE_DIR_CHANGE            true   // set to true if your spindle controller supports changing spindle direction
+  #define SPINDLE_LASER_ENABLE_INVERT   false  // Set to "true" if the on/off function is reversed
+  #define SPINDLE_LASER_PWM             true   // Set to true if your controller supports setting the speed/power
+  #define SPINDLE_LASER_PWM_INVERT      true   // Set to "true" if the speed/power goes up when you want it to go slower
+  #define SPINDLE_LASER_POWERUP_DELAY   5000   // (ms) Delay to allow the spindle/laser to come up to speed/power
+  #define SPINDLE_LASER_POWERDOWN_DELAY 5000   // (ms) Delay to allow the spindle to stop
+  #define SPINDLE_DIR_CHANGE            true   // Set to true if your spindle controller supports changing spindle direction
   #define SPINDLE_INVERT_DIR            false
-  #define SPINDLE_STOP_ON_DIR_CHANGE    true   // set to true if Marlin should stop the spindle before changing rotation direction
+  #define SPINDLE_STOP_ON_DIR_CHANGE    true   // Set to true if Marlin should stop the spindle before changing rotation direction
 
   /**
    *  The M3 & M4 commands use the following equation to convert PWM duty cycle to speed/power
@@ -2106,6 +2135,21 @@
   //#define SPEED_POWER_INTERCEPT  0
   //#define SPEED_POWER_MIN       10
   //#define SPEED_POWER_MAX      100      // 0-100%
+#endif
+
+/**
+ * Coolant Control
+ *
+ * Add the M7, M8, and M9 commands to turn mist or flood coolant on and off.
+ *
+ * Note: COOLANT_MIST_PIN and/or COOLANT_FLOOD_PIN must also be defined.
+ */
+//#define COOLANT_CONTROL
+#if ENABLED(COOLANT_CONTROL)
+  #define COOLANT_MIST                // Enable if mist coolant is present
+  #define COOLANT_FLOOD               // Enable if flood coolant is present
+  #define COOLANT_MIST_INVERT  false  // Set "true" if the on/off function is reversed
+  #define COOLANT_FLOOD_INVERT false  // Set "true" if the on/off function is reversed
 #endif
 
 /**
