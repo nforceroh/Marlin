@@ -124,7 +124,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 1000000
+#define BAUDRATE 250000
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -137,7 +137,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "Honeybee"
+#define CUSTOM_MACHINE_NAME "Hornet"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -458,9 +458,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Ultimaker
-#define DEFAULT_Kp 31.92
-#define DEFAULT_Ki 3.27
-#define DEFAULT_Kd 77.96
+#define DEFAULT_Kp 13.17
+#define DEFAULT_Ki 0.67
+#define DEFAULT_Kd 64.62
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -816,7 +816,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -827,7 +827,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-#define BLTOUCH
+//#define BLTOUCH
 
 // A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
 //#define SOLENOID_PROBE
@@ -999,8 +999,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 280
-#define Y_BED_SIZE 270 
+#define X_BED_SIZE 440
+#define Y_BED_SIZE 440 
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
