@@ -645,12 +645,12 @@
  */
 #define X_DRIVER_TYPE  TMC2208
 #define Y_DRIVER_TYPE  TMC2208
-#define Z_DRIVER_TYPE  A4988
+#define Z_DRIVER_TYPE  DRV8825
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE A4988
+#define E0_DRIVER_TYPE DRV8825
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -700,14 +700,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 375.66, 192.31 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 1502.64, 793.35 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 1000, 1000, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 1000, 1000, 100, 100 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -999,8 +999,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 440
-#define Y_BED_SIZE 440 
+#define X_BED_SIZE 420
+#define Y_BED_SIZE 420 
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1008,7 +1008,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 290
+#define Z_MAX_POS 400
 
 /**
  * Software Endstops
