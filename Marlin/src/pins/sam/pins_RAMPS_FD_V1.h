@@ -43,10 +43,10 @@
 //
 // Servos
 //
-#define SERVO0_PIN          7
-#define SERVO1_PIN          6
-#define SERVO2_PIN          5
-#define SERVO3_PIN          3
+//#define SERVO0_PIN          7
+//#define SERVO1_PIN          6
+//#define SERVO2_PIN          5
+//#define SERVO3_PIN          3
 
 //
 // Limit Switches
@@ -65,21 +65,21 @@
 #define X_DIR_PIN          62
 #define X_ENABLE_PIN       48
 #ifndef X_CS_PIN
-  #define X_CS_PIN         68
+  #define X_CS_PIN         7
 #endif
 
 #define Y_STEP_PIN         65
 #define Y_DIR_PIN          64
 #define Y_ENABLE_PIN       46
 #ifndef Y_CS_PIN
-  #define Y_CS_PIN         60
+  #define Y_CS_PIN         6
 #endif
 
 #define Z_STEP_PIN         67
 #define Z_DIR_PIN          66
 #define Z_ENABLE_PIN       44
 #ifndef Z_CS_PIN
-  #define Z_CS_PIN         58
+  #define Z_CS_PIN         5
 #endif
 
 #define E0_STEP_PIN        36
