@@ -39,6 +39,9 @@
 #define INVERTED_HEATER_PINS
 #define INVERTED_BED_PINS
 #define INVERTED_FAN_PINS
+//#define HEATER_0_INVERTING
+//#define HEATER_1_INVERTING
+//#define HEATER_2_INVERTING
 
 //
 // Servos
@@ -233,3 +236,42 @@
   #define SPINDLE_LASER_PWM_PIN 12   // Hardware PWM
   #define SPINDLE_DIR_PIN       47   // Use E2 DIR
 #endif
+
+
+#if ENABLED(SPINDLE_LASER_ENABLE) && !PIN_EXISTS(SPINDLE_LASER_ENABLE)
+  #if HOTENDS < 3
+    #define SPINDLE_LASER_ENABLE_PIN  45   // Use E2 ENA
+    #define SPINDLE_LASER_PWM_PIN     12   // MUST BE HARDWARE PWM
+    #define SPINDLE_DIR_PIN           47   // Use E2 DIR
+  #endif
+#endif
+
+#if defined(HEATER_0_PIN)
+  #if (HEATER_0_PIN >= 8 && HEATER_0_PIN <= 11)
+    #define HEATER_0_INVERTING true
+  #endif
+#endif
+
+#if defined(HEATER_1_PIN)
+  #if (HEATER_1_PIN >= 8 && HEATER_1_PIN <= 11)
+    #define HEATER_1_INVERTING true
+  #endif
+#endif
+
+#if defined(HEATER_2_PIN)
+  #if (HEATER_2_PIN >= 8 && HEATER_2_PIN <= 11)
+    #define HEATER_2_INVERTING true
+  #endif
+#endif
+
+#if defined(HEATER_3_PIN)
+  #if (HEATER_3_PIN >= 8 && HEATER_3_PIN <= 11)
+    #define HEATER_3_INVERTING true
+  #endif
+#endif
+
+#if defined(HEATER_BED_PIN)
+  #if (HEATER_BED_PIN >= 8 && HEATER_BED_PIN <= 11)
+    #define HEATER_BED_INVERTING true
+  #endif
+#endif			
