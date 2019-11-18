@@ -46,7 +46,7 @@
 //
 // Servos
 //
-//#define SERVO0_PIN          7
+#define SERVO0_PIN          3 // was 7
 //#define SERVO1_PIN          6
 //#define SERVO2_PIN          5
 //#define SERVO3_PIN          3
