@@ -406,7 +406,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 99
+#define TEMP_SENSOR_0 11
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -477,9 +477,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Ultimaker
-#define DEFAULT_Kp 13.17
-#define DEFAULT_Ki 0.67
-#define DEFAULT_Kd 64.62
+#define DEFAULT_Kp 14.22
+#define DEFAULT_Ki 0.83
+#define DEFAULT_Kd 61.21
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -521,6 +521,7 @@
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
 #define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_CYCLE_TIME_PID_AUTOTUNE 40L
 
 #if ENABLED(PIDTEMPBED)
   //#define MIN_BED_POWER 0
@@ -528,9 +529,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-#define DEFAULT_bedKp 44.65
-#define DEFAULT_bedKi 2.52
-#define DEFAULT_bedKd 197.55
+#define DEFAULT_bedKp 78.71
+#define DEFAULT_bedKi 1.40
+#define DEFAULT_bedKd 2960.32
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -719,14 +720,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 1502.64, 793.35 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 1502.64, 554.72 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 1000, 1000, 100, 100 }
+#define DEFAULT_MAX_FEEDRATE          { 1000, 1000, 12, 100 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1049,8 +1050,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 420
-#define Y_BED_SIZE 420 
+#define X_BED_SIZE 410
+#define Y_BED_SIZE 400 
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
