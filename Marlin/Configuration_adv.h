@@ -165,24 +165,14 @@
  * Thermal Protection parameters for the bed are just as above for hotends.
  */
 #if ENABLED(THERMAL_PROTECTION_BED)
-<<<<<<< HEAD
   #define THERMAL_PROTECTION_BED_PERIOD 40    // Seconds
   #define THERMAL_PROTECTION_BED_HYSTERESIS 2 // Degrees Celsius
-=======
-  #define THERMAL_PROTECTION_BED_PERIOD        20 // Seconds
-  #define THERMAL_PROTECTION_BED_HYSTERESIS     2 // Degrees Celsius
->>>>>>> 90853d8e8447a98ee31c85a66931fdd770874594
 
   /**
    * As described above, except for the bed (M140/M190/M303).
    */
-<<<<<<< HEAD
   #define WATCH_BED_TEMP_PERIOD 60                // Seconds
   #define WATCH_BED_TEMP_INCREASE 1               // Degrees Celsius
-=======
-  #define WATCH_BED_TEMP_PERIOD                60 // Seconds
-  #define WATCH_BED_TEMP_INCREASE               2 // Degrees Celsius
->>>>>>> 90853d8e8447a98ee31c85a66931fdd770874594
 #endif
 
 /**
@@ -2202,9 +2192,9 @@
    */
   #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     60  // [mm/s]
+  #define X_HYBRID_THRESHOLD     80  // [mm/s]
   #define X2_HYBRID_THRESHOLD    100
-  #define Y_HYBRID_THRESHOLD     60
+  #define Y_HYBRID_THRESHOLD     80
   #define Y2_HYBRID_THRESHOLD    100
   #define Z_HYBRID_THRESHOLD       3
   #define Z2_HYBRID_THRESHOLD      3
