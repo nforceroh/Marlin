@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -197,7 +197,7 @@ void spiBegin() {
     // output pin high - like sending 0xFF
     WRITE(MOSI_PIN, HIGH);
 
-    for (uint8_t i = 0; i < 8; i++) {
+    LOOP_L_N(i, 8) {
       WRITE(SCK_PIN, HIGH);
 
       nop; // adjust so SCK is nice
@@ -224,7 +224,7 @@ void spiBegin() {
   void spiSend(uint8_t data) {
     // no interrupts during byte send - about 8µs
     cli();
-    for (uint8_t i = 0; i < 8; i++) {
+    LOOP_L_N(i, 8) {
       WRITE(SCK_PIN, LOW);
       WRITE(MOSI_PIN, data & 0x80);
       data <<= 1;

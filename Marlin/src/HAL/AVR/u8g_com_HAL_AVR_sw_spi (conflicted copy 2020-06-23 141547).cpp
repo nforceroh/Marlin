@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -88,7 +88,7 @@ void u8g_spiSend_sw_AVR_mode_0(uint8_t val) {
   volatile uint8_t *outData = u8g_outData,
                    *outClock = u8g_outClock;
   U8G_ATOMIC_START();
-  for (uint8_t i = 0; i < 8; i++) {
+  LOOP_L_N(i, 8) {
     if (val & 0x80)
       *outData |= bitData;
     else
@@ -108,7 +108,7 @@ void u8g_spiSend_sw_AVR_mode_3(uint8_t val) {
   volatile uint8_t *outData = u8g_outData,
                    *outClock = u8g_outClock;
   U8G_ATOMIC_START();
-  for (uint8_t i = 0; i < 8; i++) {
+  LOOP_L_N(i, 8) {
     *outClock &= bitNotClock;
     if (val & 0x80)
       *outData |= bitData;

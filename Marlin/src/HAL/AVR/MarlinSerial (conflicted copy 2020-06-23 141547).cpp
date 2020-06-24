@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -43,6 +43,10 @@
   #include "MarlinSerial.h"
   #include "../../MarlinCore.h"
 
+  #if ENABLED(DIRECT_STEPPING)
+    #include "../../feature/direct_stepping.h"
+  #endif
+
   template<typename Cfg> typename MarlinSerial<Cfg>::ring_buffer_r MarlinSerial<Cfg>::rx_buffer = { 0, 0, { 0 } };
   template<typename Cfg> typename MarlinSerial<Cfg>::ring_buffer_t MarlinSerial<Cfg>::tx_buffer = { 0 };
   template<typename Cfg> bool     MarlinSerial<Cfg>::_written = false;
@@ -55,7 +59,7 @@
   // A SW memory barrier, to ensure GCC does not overoptimize loops
   #define sw_barrier() asm volatile("": : :"memory");
 
-  #include "../../feature/emergency_parser.h"
+  #include "../../feature/e_parser.h"
 
   // "Atomically" read the RX head index value without disabling interrupts:
   // This MUST be called with RX interrupts enabled, and CAN'T be called
@@ -131,6 +135,18 @@
 
     static EmergencyParser::State emergency_state; // = EP_RESET
 
+    // This must read the R_UCSRA register before reading the received byte to detect error causes
+    if (Cfg::DROPPED_RX && B_DOR && !++rx_dropped_bytes) --rx_dropped_bytes;
+    if (Cfg::RX_OVERRUNS && B_DOR && !++rx_buffer_overruns) --rx_buffer_overruns;
+    if (Cfg::RX_FRAMING_ERRORS && B_FE && !++rx_framing_errors) --rx_framing_errors;
+
+    // Read the character from the USART
+    uint8_t c = R_UDR;
+
+    #if ENABLED(DIRECT_STEPPING)
+      if (page_manager.maybe_store_rxd_char(c)) return;
+    #endif
+
     // Get the tail - Nothing can alter its value while this ISR is executing, but there's
     // a chance that this ISR interrupted the main process while it was updating the index.
     // The backup mechanism ensures the correct value is always returned.
@@ -141,14 +157,6 @@
 
     // Get the next element
     ring_buffer_pos_t i = (ring_buffer_pos_t)(h + 1) & (ring_buffer_pos_t)(Cfg::RX_SIZE - 1);
-
-    // This must read the R_UCSRA register before reading the received byte to detect error causes
-    if (Cfg::DROPPED_RX && B_DOR && !++rx_dropped_bytes) --rx_dropped_bytes;
-    if (Cfg::RX_OVERRUNS && B_DOR && !++rx_buffer_overruns) --rx_buffer_overruns;
-    if (Cfg::RX_FRAMING_ERRORS && B_FE && !++rx_framing_errors) --rx_framing_errors;
-
-    // Read the character from the USART
-    uint8_t c = R_UDR;
 
     if (Cfg::EMERGENCYPARSER) emergency_parser.update(emergency_state, c);
 
@@ -682,7 +690,7 @@
 
     // Round correctly so that print(1.999, 2) prints as "2.00"
     double rounding = 0.5;
-    for (uint8_t i = 0; i < digits; ++i) rounding *= 0.1;
+    LOOP_L_N(i, digits) rounding *= 0.1;
     number += rounding;
 
     // Extract the integer part of the number and print it

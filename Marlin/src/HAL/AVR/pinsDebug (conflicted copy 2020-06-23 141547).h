@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,12 +70,12 @@
 
 void PRINT_ARRAY_NAME(uint8_t x) {
   char *name_mem_pointer = (char*)pgm_read_ptr(&pin_array[x].name);
-  for (uint8_t y = 0; y < MAX_NAME_LENGTH; y++) {
+  LOOP_L_N(y, MAX_NAME_LENGTH) {
     char temp_char = pgm_read_byte(name_mem_pointer + y);
     if (temp_char != 0)
       SERIAL_CHAR(temp_char);
     else {
-      for (uint8_t i = 0; i < MAX_NAME_LENGTH - y; i++) SERIAL_CHAR(' ');
+      LOOP_L_N(i, MAX_NAME_LENGTH - y) SERIAL_CHAR(' ');
       break;
     }
   }
@@ -231,10 +231,10 @@ static void err_is_interrupt()   { SERIAL_ECHOPGM("   compare interrupt enabled"
 static void err_prob_interrupt() { SERIAL_ECHOPGM("   overflow interrupt enabled"); }
 static void print_is_also_tied() { SERIAL_ECHOPGM(" is also tied to this pin"); SERIAL_ECHO_SP(14); }
 
-void com_print(uint8_t N, uint8_t Z) {
+inline void com_print(const uint8_t N, const uint8_t Z) {
   const uint8_t *TCCRA = (uint8_t*)TCCR_A(N);
   SERIAL_ECHOPGM("    COM");
-  SERIAL_CHAR('0' + N, 'A' + Z);
+  SERIAL_CHAR('0' + N, Z);
   SERIAL_ECHOPAIR(": ", int((*TCCRA >> (6 - Z * 2)) & 0x03));
 }
 
