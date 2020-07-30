@@ -121,7 +121,7 @@
   #define MAX6675_SS_PIN                      49
 #endif
 
-//
+// 
 // Heaters / Fans
 //
 #define HEATER_0_PIN                           9

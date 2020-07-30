@@ -36,7 +36,7 @@
  * Advanced settings can be found in Configuration_adv.h
  *
  */
-#define CONFIGURATION_H_VERSION 20200623
+#define CONFIGURATION_H_VERSION 20200730
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -1308,7 +1308,7 @@
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
   #define MESH_INSET 25             // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 8      // Don't use more than 15 points per axis, implementation limited.
+  #define GRID_MAX_POINTS_X 3      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
