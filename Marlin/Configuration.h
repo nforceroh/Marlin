@@ -36,7 +36,7 @@
  * Advanced settings can be found in Configuration_adv.h
  *
  */
-#define CONFIGURATION_H_VERSION 20200619
+#define CONFIGURATION_H_VERSION 20200812
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -743,7 +743,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 375.66, 476.18  }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 375.66, 428.00  }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1013,8 +1013,8 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
-#define EXTRA_PROBING    1
+//#define MULTIPLE_PROBING 2
+//#define EXTRA_PROBING    0
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1316,7 +1316,7 @@
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
   #define MESH_INSET 25             // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 3      // Don't use more than 15 points per axis, implementation limited.
+  #define GRID_MAX_POINTS_X 5      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
@@ -1395,8 +1395,8 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (3000)
-#define HOMING_FEEDRATE_Z  (400)
+#define HOMING_FEEDRATE_XY (8000)
+#define HOMING_FEEDRATE_Z  (1000)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
