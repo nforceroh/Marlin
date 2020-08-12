@@ -16,15 +16,15 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
 #pragma once
 
 // 100k bed thermistor with a 10K pull-up resistor - made by $ buildroot/share/scripts/createTemperatureLookupMarlin.py --rp=10000
-// Calculated on 01/08/2020 for skr_honeybee
-const short temptable_99[][2] PROGMEM = {
+
+const temp_entry_t temptable_99[] PROGMEM = {
         { OV(  10), 340}, // col 46 ADC val:  0 0 0 0 0 0 0 0 0 0 -- 0
         { OV(  12), 330}, // col 46 ADC val:  0 0 0 0 0 0 0 0 0 0 -- 0
         { OV(  14), 320}, // col 46 ADC val:  0 0 0 0 0 0 0 0 0 0 -- 0
